@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org"></html>
+
+<head>
+    <meta charset="utf-8">
+    <title>團購活動 單品</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+
+
+    <link rel="preconnect" href="https://fonts.googleapis.com/">
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+    <link href="Group/Shan_static/css/css2.css" rel="stylesheet">
+
+    <link href="Group/Shan_static/css/all.min.css" rel="stylesheet">
+    <link href="Group/Shan_static/css/bootstrap-icons.css" rel="stylesheet">
+
+    <link href="Group/Shan_static/css/animate.min.css" rel="stylesheet">
+    <link href="Group/Shan_static/css/owl.carousel.min.css" rel="stylesheet">
+
+    <link href="Group/Shan_static/css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="Group/Shan_static/css/style.css" rel="stylesheet">
+
+    <!-- CSS here -->
+    <link rel="stylesheet" href="Group/Shan_assets/css/main.css" />
+
+    <style>
+        .tototo {
+            height: 200px;
+        }
+
+        progress {
+            width: 400px;
+            position: relative;
+            /* -webkit-appearance: none; */
+            border-radius: 5px;
+            /* 圓角 */
+            overflow: hidden;
+            /* 超過範圍就裁切 */
+            height: 14px;
+            /* 高度 */
+        }
+
+        ::-webkit-progress-value {
+            background-color: rgb(0, 110, 255);
+        }
+
+
+
+        ::-webkit-progress-bar {
+            background-color: rgb(216, 231, 241);
+        }
+    </style>
+</head>
+
+<body>
+    <div id="spinner"
+        class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-grow text-primary" role="status"></div>
+    </div>
+
+
+    <!-- 頁首 -->
+    <div th:insert="front-end/components/Header :: #header-div"></div>
+
+    <!-- 導覽列 -->
+    <div th:insert="front-end/components/NavBar :: #nav-bar"></div>
+
+    
+    <div class="tototo"></div>
+    <main>
+
+        <!-- 單品區開始 -->
+        <div class="single-product-area mb-100">
+            <div class="container">
+                <div class="row mb-40">
+                    <!-- 單品圖片顯示開始 -->
+                    <div class="col-xxl-6 col-lg-6">
+                        <div class="epix-single-product-left mr-35">
+                            <div class="epix-tab-product mb-15">
+                                <div class="epix-product-tab-content">
+                                    <div class="tab-content imgmonth" id="pills-tabContent">
+                                        <!-- <div class="tab-pane fade show active" id="epix-single-1">
+                                            <div class="epix-single-product-thumb-4">
+                                                <div class="epix-featured">
+                                                </div>
+                                                <img src="" 
+                                                    data-zoom-image=""
+                                                    class="img-fluid" alt="">
+                                            </div>
+                                        </div> -->
+                                        <!-- <div class="tab-pane fade" id="epix-single-2">
+                                            <div class="epix-single-product-thumb-4">
+                                                <div class="epix-featured">
+                                                </div>
+                                                <img th:src="@{${'/groupActivity/get/Product' + groupActivityDTO.getGroupProductId + '/img1'}}"
+                                                    data-zoom-image="@{${'/groupActivity/get/Product' + groupActivityDTO.getGroupProductId + '/img1'}}" 
+                                                    class="img-fluid" alt="">
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane fade" id="epix-single-3">
+                                            <div class="epix-single-product-thumb-4">
+                                                <div class="epix-featured">
+                                                </div>
+                                                <img th:src="@{${'/groupActivity/get/Product' + groupActivityDTO.getGroupProductId + '/img2'}}"
+                                                    data-zoom-image="@{${'/groupActivity/get/Product' + groupActivityDTO.getGroupProductId + '/img2'}}"
+                                                    class="img-fluid" alt="">
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane fade" id="epix-single-4">
+                                            <div class="epix-single-product-thumb-4">
+                                                <div class="epix-featured">
+                                                </div>
+                                                <img th:src="@{${'/groupActivity/get/Product' + groupActivityDTO.getGroupProductId + '/img3'}}"
+                                                    data-zoom-image="@{${'/groupActivity/get/Product' + groupActivityDTO.getGroupProductId + '/img3'}}" 
+                                                    class="img-fluid" alt="">
+                                            </div>
+                                        </div> -->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="epix-tab-content">
+                                <ul class="nav nav-pills mb-3 imgsun" id="epix-single-product-tab" role="tablist">
+                                    <!-- <li>
+                                        <button class="active" value="1" data-bs-toggle="pill" data-bs-target="#epix-single-1" type="button">
+                                            <img width="98" height="98" src=""
+                                                alt="">
+                                        </button>
+                                    </li> -->
+                                    <!-- <li>
+                                        <button data-bs-toggle="pill" value="2" data-bs-target="#epix-single-2" type="button">
+                                            <img width="98" height="98" th:src="@{${'/groupActivity/get/Product' + groupActivityDTO.getGroupProductId + '/img1'}}"
+                                                alt="">
+                                        </button>
+                                    </li>
+                                    <li>
+                                        <button data-bs-toggle="pill" value="3" data-bs-target="#epix-single-3"
+                                            type="button">
+                                            <img width="98" height="98" th:src="@{${'/groupActivity/get/Product' + groupActivityDTO.getGroupProductId + '/img2'}}"
+                                                alt="">
+                                        </button>
+                                    </li>
+                                    <li>
+                                        <button data-bs-toggle="pill" value="4" data-bs-target="#epix-single-4"
+                                            type="button">
+                                            <img width="98" height="98" th:src="@{${'/groupActivity/get/Product' + groupActivityDTO.getGroupProductId + '/img3'}}" 
+                                                alt="">
+                                        </button>
+                                    </li> -->
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 單品圖片顯示結束 -->
+                    <div class="col-xxl-6 col-lg-6">
+                        <div class="epix-single-product-right" id="showthe">
+                            <h4 class="epix-single-product-title" th:text="'團購活動：' + ${groupActivityDTO.getGroupName}"></h4>
+                            <h6>團購主:</h6>
+                            <p class="epix-product-details-short-description" th:inline="text">
+                                開始日期:[[${groupActivityDTO.getGroupOrderStar}]]<br>
+                                結束日期:[[${groupActivityDTO.getGroupOrderEnd}]]<br>
+                                成團達標數:[[${groupActivityDTO.getGroupOrderMin}]]<br>
+                                已參加人數:[[${groupActivityDTO.getGroupDetailCount}]]<br>
+                                已購買數量:[[${groupActivityDTO.getNumberOfProduct}]]
+                            </p>
+                            <!-- 下面用來設定倒數計時日期 -->
+                            <input type="text" id="setendday" hidden th:value="${groupActivityDTO.getGroupOrderEnd}">
+                            <!-- 下面用來設定達標量 -->
+                            <input type="text" id="walk" hidden th:value="${groupActivityDTO.getGroupOrderMin}">
+                            <p class="epix-product-details-short-description">
+
+
+                            </p>
+                            <p class="price">
+                                <span class="epix-price-amount">
+                                    <bdi th:inline="text">
+                                        <span class="epix-price-currency-symbol">NT$</span>
+                                        [[${groupActivityDTO.getGroupActivityPrice}]]
+                                    </bdi>
+                                </span>
+                            </p>
+                            <form action="#" class="epix-cart-variation">
+                                <!-- 選擇規格開始，先不要 -->
+                               
+                                <!-- 選擇規格結束 -->
+                                <div class="epix-quantity-validation">
+                                    <!-- <span>數量</span>
+                                    <div class="wrap-2 d-block d-sm-inline-block mb-15 mb-sm-0">
+                                        <div class="d-inline-block border-gray mr-20">
+                                            <div class="epix-quantity-form">
+                                                <div class="cart-plus-minus"></div>
+                                                <input type="text" value="2">
+                                            </div>
+                                        </div>
+                                        <a href="cart.html" class="cart-btn mr-15">加入購物車</a>
+                                    </div> -->
+                                    <!-- 在結帳的頁面選擇數量 -->
+                                    <span>倒數計時:</span>
+                                    <p id="demo"></p>
+                                    <p>
+                                        <span>揪團進度：</span>
+                                        <progress id="theprogress" th:value="${groupActivityDTO.getNumberOfProduct}" th:max="${groupActivityDTO.getGroupOrderMin}"></progress>
+                                        <span id="percentage"></span>
+                                    </p>
+                                    <a th:href="@{'/group-product/Checkout?groupActivityId=' + ${groupActivityDTO.groupActivityId} + '&groupActivityPrice=' + ${groupActivityDTO.groupActivityPrice}}" class="buy-btn d-block d-sm-inline-block text-center text-sm-left" id="joinbutton">參加團購</a>
+                                    <!-- <form action="/group-product/Checkout" method="get" target="_blank">
+                                        <input type="text" name="groupActivityId" th:value="${groupActivityDTO.groupActivityId}" hidden>
+                                        <input type="text" name="groupActivityPrice" th:value="${groupActivityDTO.groupActivityPrice}" hidden> -->
+                                        <!-- <a th:href="@{'/group-product/Checkout?groupActivityId=' + ${groupActivityDTO.groupActivityId} + '&groupActivityPrice=' + ${groupActivityDTO.groupActivityPrice}}"> -->
+                                            <!-- <button type="submit">參加團購</button> -->
+                                        <!-- </a> -->
+                                    <!-- </form> -->
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!-- 組合包框開始，這不要 -->
+
+                <!-- 組合包框結束 -->
+                <div class="row">
+                    <div class="col-xxl-12">
+                        <div class="epix-single-product-description">
+                            <div class="epix-single-product-description-tabs-wrap mb-20">
+                                <div class="epix-single-product-description-tab">
+                                    <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                                        <li class="nav-item" role="presentation">
+                                            <button class="active" data-bs-toggle="pill" data-bs-target="#tab-1-1"
+                                                type="button">描述</button>
+                                        </li>
+                                        <li class="nav-item" role="presentation">
+                                            <button data-bs-toggle="pill" data-bs-target="#tab-1-2"
+                                                type="button">附加信息</button>
+                                        </li>
+                                        <!-- 評論欄位開始 -->
+
+                                        <!-- 評論欄位結束 -->
+                                    </ul>
+                                </div>
+                                <div class="epix-single-product-description-content-wrap">
+                                    <div class="tab-content" id="nav-tabContent">
+                                        <div class="tab-pane fade show active" id="tab-1-1" role="tabpanel">
+                                            <div class="epix-single-product-content">
+                                                <p th:text="${groupActivityDTO.getGroupActivityContent}">
+                                                    <!-- 團購活動內容放這邊 -->
+                                                </p>
+
+                                                <div class="row">
+                                                    <div class="col-xxl-7">
+                                                        <!-- 規格表開始，這先不要 -->
+
+                                                        <!-- 規格表結束 -->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane fade" id="tab-1-2" role="tabpanel">
+                                            <div class="epix-additional-product-information">
+                                                <div class="epix-product-table">
+                                                    <table class="table table-striped">
+                                                        <tbody>
+                                                            <tr>
+                                                                <th>商品名稱</th>
+                                                                <td>
+                                                                    <a id="catchgroupProductId" th:text="${groupActivityDTO.getGroupProductId}" hidden></a>
+                                                                    <a th:text="${groupActivityDTO.getGroupProductName}"></a>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>商品內容詳細</th>
+                                                                <td>
+                                                                    <a th:text="${groupActivityDTO.getGroupProductContent}"></a>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>品牌</th>
+                                                                <td>
+                                                                    <a>第六組</a>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>保存期限</th>
+                                                                <td>
+                                                                    <a>整整4個月半</a>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane fade" id="tab-1-3" role="tabpanel">
+                                            <!-- 評論標頭開始，這不要 -->
+
+                                            <!-- 評論內容結束 -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 單品區結束 -->
+    </main>
+
+    
+    <!-- 頁腳 -->
+    <div th:insert="front-end/components/Footer :: #footer-div"></div>
+
+    <!-- 版權所有 -->
+    <div th:insert="front-end/components/Copyright :: #copyright-div"></div>
+    
+
+    <script data-cfasync="false" src="Group/Shan_static/js/email-decode.min.js"></script>
+    <!-- <script src="Group/Shan_static/js/jquery-3.4.1.min.js" type="0080e6b992b21508d4c0eeae-text/javascript"></script> -->
+    <script src="Group/Shan_static/js/bootstrap.bundle.min.js" type="0080e6b992b21508d4c0eeae-text/javascript"></script>
+    <script src="Group/Shan_static/js/wow.min.js" type="0080e6b992b21508d4c0eeae-text/javascript"></script>
+    <script src="Group/Shan_static/js/easing.min.js" type="0080e6b992b21508d4c0eeae-text/javascript"></script>
+    <script src="Group/Shan_static/js/waypoints.min.js" type="0080e6b992b21508d4c0eeae-text/javascript"></script>
+    <script src="Group/Shan_static/js/counterup.min.js" type="0080e6b992b21508d4c0eeae-text/javascript"></script>
+    <script src="Group/Shan_static/js/owl.carousel.min.js" type="0080e6b992b21508d4c0eeae-text/javascript"></script>
+
+    <script src="Group/Shan_static/js/main.js" type="0080e6b992b21508d4c0eeae-text/javascript"></script>
+    <script src="Group/Shan_static/js/rocket-loader.min.js" data-cf-settings="0080e6b992b21508d4c0eeae-|49"
+        defer=""></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+    <script>
+        // Set the date we're counting down to
+        var countDownDate = new Date($("#setendday").val()).getTime();
+
+        // Update the count down every 1 second
+        var x = setInterval(function () {
+            
+            // Get today's date and time
+            var now = new Date().getTime();
+
+            // Find the distance between now and the count down date
+            var distance = countDownDate - now;
+
+            // Time calculations for days, hours, minutes and seconds
+            var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            // Display the result in the element with id="demo"
+            document.getElementById("demo").innerHTML = days + "天 " + hours + "小時 "
+                + minutes + "分 " + seconds + "秒 ";
+
+            // If the count down is finished, write some text
+            if (distance < 0) {
+                clearInterval(x);
+                document.getElementById("demo").innerHTML = "已到期";
+            }
+        }, 1000);
+
+
+        //計算參加%值。
+        $(window).on("load", function() {
+            let walk = ($("#theprogress").val() / $("#walk").val()).toFixed(5);
+            $("#percentage").html((walk*100) + "%");
+            WTF();
+        })
+
+        let limitnow = new Date().getTime();
+        $(document).ready(function () {
+            if(limitnow > countDownDate){
+                alert("該團購活動已結束! 返回團購平台");
+                window.location.href="/group-shop";
+                // alert("該團購活動已結束 Chill一下") //跟下一行搭配。
+                // document.getElementById("joinbutton").style.visibility = "hidden"; //這種的也不錯，原本想用這個再配合倒數讀秒隱藏。
+            }
+            
+        });
+    </script>
+
+    <script>
+        function WTF(){
+            let eu = { groupProductId: Number($("#catchgroupProductId").text()) };
+        $.ajax({
+            url: "/groupActivity/getImgPkId",
+            method: "POST",
+            data: eu,
+            success: function (response) {
+                // console.log("觀察回應的陣列長度:" + response.length);
+                let i = 1;
+                let texts = "";
+                for (let index = 0; index < response.length; index++) {
+                    if(index <= 0){
+                        let text = `
+                        <div class="tab-pane fade show active" id="epix-single-${i}">
+                            <div class="epix-single-product-thumb-4">
+                                <div class="epix-featured">
+                                </div>
+                                <img src="/groupActivity/get/Product${response[index].groupProductImgId}" 
+                                    data-zoom-image=""
+                                    class="img-fluid" alt="">
+                            </div>
+                        </div>`
+                        texts += text;
+                    }else {
+                        let text = `
+                        <div class="tab-pane fade" id="epix-single-${i}">
+                            <div class="epix-single-product-thumb-4">
+                                <div class="epix-featured">
+                                </div>
+                                <img src="/groupActivity/get/Product${response[index].groupProductImgId}"
+                                    data-zoom-image="/groupActivity/get/Product${response[index].groupProductImgId}" 
+                                    class="img-fluid" alt="">
+                            </div>
+                        </div>`;
+                        texts += text;
+                    }
+                    ++i;
+                }
+                $("#pills-tabContent").html(texts);
+                
+                i = 1;
+                texts = "";
+                for (let index = 0; index < response.length; index++) {
+                    if(index <= 0){
+                        let text = `
+                        <li>
+                            <button class="active" value="${i}" data-bs-toggle="pill" data-bs-target="#epix-single-${i}" type="button">
+                                <img width="98" height="98" src="/groupActivity/get/Product${response[index].groupProductImgId}"
+                                    alt="">
+                            </button>
+                        </li>`;
+                        texts += text;
+    
+                    }else {
+                        let text = `
+                        <li>
+                            <button data-bs-toggle="pill" value="${i}" data-bs-target="#epix-single-${i}" type="button">
+                                <img width="98" height="98" src="/groupActivity/get/Product${response[index].groupProductImgId}"
+                                    alt="">
+                            </button>
+                        </li>`;
+                        texts += text;
+                    }
+                    ++i;
+                }
+                $("#epix-single-product-tab").html(texts);
+            }
+        });
+    };
+    </script>
+</body>
+
+</html>

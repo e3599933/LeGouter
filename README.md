@@ -1,2 +1,2 @@
-# LeGouter
-甜點購物商城
+# springBoot_LeGouter
+Project of dessert website.

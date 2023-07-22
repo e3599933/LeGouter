@@ -1,0 +1,536 @@
+<!doctype html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <!-- Owl Theme Default CSS -->
+    <link rel="stylesheet" href="/Course/front-end/assets/css/owl.theme.default.min.css">
+    <!-- Owl Carousel CSS -->
+    <!-- Owl Magnific CSS -->
+    <link rel="stylesheet" href="/Course/front-end/assets/css/magnific-popup.css">
+    <!-- Animate CSS -->
+    <link rel="stylesheet" href="/Course/front-end/assets/css/animate.css">
+    <!-- Meanmenu CSS -->
+    <link rel="stylesheet" href="/Course/front-end/assets/css/meanmenu.css">
+    <!-- Nice Select CSS -->
+    <link rel="stylesheet" href="/Course/front-end/assets/css/nice-select.css">
+    <!-- Odometer CSS-->
+    <link rel="stylesheet" href="/Course/front-end/assets/css/odometer.css">
+    <!-- Style CSS -->
+    <link rel="stylesheet" href="/Course/front-end/assets/css/style.css">
+    <!-- Responsive CSS -->
+    <link rel="stylesheet" href="/Course/front-end/assets/css/responsive.css">
+
+
+    <link rel="preconnect" href="https://fonts.googleapis.com/">
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+    <link href="/Course/front-end/static/css/css2.css" rel="stylesheet">
+
+    <link href="/Course/front-end/static/css/all.min.css" rel="stylesheet">
+    <link href="/Course/front-end/static/css/bootstrap-icons.css" rel="stylesheet">
+
+    <link href="/Course/front-end/static/css/animate.min.css" rel="stylesheet">
+    <link href="/Course/front-end/static/css/owl.carousel.min.css" rel="stylesheet">
+
+    <link href="/Course/front-end/static/css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="/Course/front-end/static/css/style.css" rel="stylesheet">
+
+    <!-- Favicon -->
+
+    <!-- Title -->
+    <title>團購活動結帳頁面</title>
+</head>
+
+<body>
+
+<!--<div id="spinner"-->
+<!--     class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">-->
+<!--    <div class="spinner-grow text-primary" role="status"></div>-->
+<!--</div>-->
+
+<!-- Menu For Desktop Device -->
+<div class="container-fluid top-bar bg-dark text-light px-0 wow fadeIn" data-wow-delay="0.1s">
+    <div class="row gx-0 align-items-center d-none d-lg-flex">
+        <div class="col-lg-6 px-5 text-start">
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item"><a class="small text-light" href="#">Home</a></li>
+                <li class="breadcrumb-item"><a class="small text-light" href="#">Career</a></li>
+                <li class="breadcrumb-item"><a class="small text-light" href="#">Terms</a></li>
+                <li class="breadcrumb-item"><a class="small text-light" href="#">Privacy</a></li>
+            </ol>
+        </div>
+        <div class="col-lg-6 px-5 text-end">
+            <small>Follow us:</small>
+            <div class="h-100 d-inline-flex align-items-center">
+                <a class="btn-lg-square text-primary border-end rounded-0" href=""><i
+                        class="fab fa-facebook-f"></i></a>
+                <a class="btn-lg-square text-primary border-end rounded-0" href=""><i
+                        class="fab fa-twitter"></i></a>
+                <a class="btn-lg-square text-primary border-end rounded-0" href=""><i
+                        class="fab fa-linkedin-in"></i></a>
+                <a class="btn-lg-square text-primary pe-0" href=""><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top py-lg-0 px-lg-5 wow fadeIn" data-wow-delay="0.1s">
+
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top py-lg-0 px-lg-5 wow fadeIn animated bg-dark"
+         data-wow-delay="0.1s" style="visibility: visible; animation-delay: 0.1s; top: 0px; animation-name: fadeIn;">
+        <a href="index1.html" class="navbar-brand ms-4 ms-lg-0">
+            <h1 class="text-primary m-0">Le Goûter</h1>
+        </a>
+        <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse"
+                data-bs-target="#navbarCollapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <div class="navbar-nav mx-auto p-4 p-lg-0">
+                <a href="" class="nav-item nav-link">首頁</a>
+                <a href="" class="nav-item nav-link">品牌故事</a>
+                <a href="" class="nav-item nav-link">甜點訂購</a>
+                <a href="" class="nav-item nav-link active">課程系統</a>
+                <a href="" class="nav-item nav-link">團購平台</a>
+                <a href="" class="nav-item nav-link">會員專區</a>
+                <a href="" class="nav-item nav-link">優惠券專區</a>
+                <div class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">其他</a>
+                    <div class="dropdown-menu m-0">
+                        <a href="" class="dropdown-item">FAQ</a>
+                        <a href="" class="dropdown-item">聯絡客服</a>
+                    </div>
+                </div>
+            </div>
+            <div class=" d-none d-lg-flex">
+                <div class="flex-shrink-0 btn-lg-square border border-light rounded-circle">
+                    <svg class="svg-inline--fa fa-phone fa-w-16 text-primary" aria-hidden="true" focusable="false"
+                         data-prefix="fa" data-icon="phone" role="img" xmlns="http://www.w3.org/2000/svg"
+                         viewBox="0 0 512 512" data-fa-i2svg="">
+                        <path fill="currentColor"
+                              d="M493.4 24.6l-104-24c-11.3-2.6-22.9 3.3-27.5 13.9l-48 112c-4.2 9.8-1.4 21.3 6.9 28l60.6 49.6c-36 76.7-98.9 140.5-177.2 177.2l-49.6-60.6c-6.8-8.3-18.2-11.1-28-6.9l-112 48C3.9 366.5-2 378.1.6 389.4l24 104C27.1 504.2 36.7 512 48 512c256.1 0 464-207.5 464-464 0-11.2-7.7-20.9-18.6-23.4z">
+                        </path>
+                    </svg><!-- <i class="fa fa-phone text-primary"></i> -->
+                </div>
+                <div class="ps-3">
+                    <small class="text-primary mb-0">聯絡我們</small>
+                    <p class="text-light fs-5 mb-0">0912345678</p>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+
+    <a href="index1.html" class="navbar-brand ms-4 ms-lg-0">
+        <h1 class="text-primary m-0">Le Goûter</h1>
+    </a>
+    <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarCollapse1">
+        <div class="navbar-nav mx-auto p-4 p-lg-0">
+            <a href="" class="nav-item nav-link active">首頁</a>
+            <a href="" class="nav-item nav-link">品牌故事</a>
+            <a href="" class="nav-item nav-link">甜點訂購</a>
+            <a href="" class="nav-item nav-link">課程系統</a>
+            <a href="" class="nav-item nav-link">團購平台</a>
+            <a href="" class="nav-item nav-link">會員專區</a>
+            <a href="" class="nav-item nav-link">優惠券專區</a>
+            <div class="nav-item dropdown">
+                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">其他</a>
+                <div class="dropdown-menu m-0">
+                    <a href="" class="dropdown-item">FAQ</a>
+                    <a href="" class="dropdown-item">聯絡客服</a>
+                </div>
+            </div>
+        </div>
+        <div class=" d-none d-lg-flex">
+            <div class="flex-shrink-0 btn-lg-square border border-light rounded-circle">
+                <i class="fa fa-phone text-primary"></i>
+            </div>
+            <div class="ps-3">
+                <small class="text-primary mb-0">聯絡我們</small>
+                <p class="text-light fs-5 mb-0">0912345678</p>
+            </div>
+        </div>
+    </div>
+</nav>
+<!-- End Others Option For Responsive -->
+</div>
+<!-- End Navbar Area -->
+
+<!-- Start Page Title Area -->
+<div class="page-title-area bg-4">
+    <div class="container">
+        <div class="page-title-content">
+            <h2>團購活動</h2>
+            <ul>
+                <li>
+                    <a href="index.html">
+                        Home
+                    </a>
+                </li>
+
+                <li class="active">團購活動</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- End Page Title Area -->
+
+
+<!-- Start Checkout Area -->
+<section class="checkout-area ptb-100">
+    <div class="container">
+        <form>
+            <div class="row">
+                <div class="col-lg-8 col-md-12">
+                    <div class="billing-details">
+                        <div>
+                            <h3 class="title" style="display: inline-block;">結帳資料</h3>
+                            <label id="memcheck" style="float: right;"><input type="checkbox">填入會員資料</label>
+                        </div>
+                        <input type="text" id="groupOrderId" th:value="${groupcheckoutDTO.getGroupActivityId}" hidden>
+
+                        <div class="row">
+
+                            <a style="display: none" id="memberId" th:text="${memberId}"></a>
+                            <div class="col-lg-12 col-md-12">
+                                <div class="form-group">
+                                    <label>會員帳號 <span class="required"></span></label>
+                                    <label th:text="${account}"></label>
+
+                                </div>
+                            </div>
+
+                            <div class="col-lg-12 col-md-12">
+                                <div class="form-group">
+                                    <label>團購商品價格 </label>
+                                    <input type="number" class="form-control" id="setprice" th:value="${groupcheckoutDTO.getGroupActivityPrice}" disabled
+                                           >
+                                </div>
+                            </div>
+
+                            <div class="col-lg-12 col-md-12">
+                                <div class="form-group">
+                                    <!-- 目前團購商品下訂總數 -->
+                                    <label>欲購買數量 <span class="required">*</span></label>
+                                    <input type="number" class="form-control" id="theAmount" value="1" min="1" max="50"
+                                           >
+                                </div>
+                            </div>
+
+                            <div class="col-lg-12 col-md-12">
+                                <div class="form-group">
+                                    <label for="receiverName">收件人名稱 <span class="required">*</span></label>
+                                    </label>
+                                    <input type="text" class="form-control" id="receiverName" maxlength="50"
+                                           >
+                                </div>
+                            </div>
+
+                            <div class="col-lg-12 col-md-12">
+                                <div class="form-group">
+                                    <label for="receiverAddress">收件人地址 <span class="required">*</span></label>
+                                    <input type="email" class="form-control" id="receiverAddress" maxlength="100"
+                                           >
+                                </div>
+                            </div>
+
+                            <div class="col-lg-12 col-md-12">
+                                <div class="form-group">
+                                    <label for="receiverPhone">收件人電話 <span class="required">*</span></label>
+                                    <input type="text" class="form-control" id="receiverPhone" maxlength="10" onkeypress="value=value.replace(/[^\d]/g,'')"
+                                           >
+                                </div>
+                            </div>
+
+                            <div class="col-lg-12 col-md-12">
+                                <div class="form-group">
+                                    <label for="receiverEmail">收件人信箱 <span class="required">*</span></label>
+                                    <input type="email" class="form-control" id="receiverEmail" maxlength="100"
+                                           >
+                                </div>
+                            </div>
+
+                            <div class="col-lg-12 col-md-12">
+                                <div class="form-group">
+                                    <label>團購訂單備註 </label>
+                                    <input type="text" class="form-control" id="groupProductOthers" maxlength="150">
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-12">
+                    <div class="order-details">
+                        <div class="cart-totals">
+                            <h3>結帳明細</h3>
+                            <ul>
+                                <li th:text="'活動名稱:' + ${groupcheckoutDTO.getGroupName}"></li>
+                                <li id=""></li>
+                                <li>購買數量:</li>
+                                <li id="outnumber">1</li>
+                                <li>金額:</li>
+                                <li id="outprice"></li>
+                            </ul>
+                        </div>
+                        <div class="faq-accordion">
+                            <h3>付款方式</h3>
+                            <ul class="accordion">
+                                <li class="accordion-item active">
+                                    <input type="radio" name="thePaying" value="0">
+                                    <a class="">
+                                        信用卡
+                                    </a>
+                                    <p class="accordion-content">
+                                        若使用拍付信用卡付款，系統會引導信用卡網頁填寫信用卡資料。經確認付款成功，系統將主動發出已付款成功通知信。
+                                    </p>
+                                </li>
+                                <li class="accordion-item">
+                                    <input type="radio" name="thePaying" value="1">
+                                    <a class="">
+                                        匯款
+                                    </a>
+                                    <p class="accordion-content">
+                                        若使用匯款，系統會給予一組16碼的ATM轉帳帳號，買家可以列印或抄下帳號到外面的ATM提款機轉帳。經確認付款成功，系統會發出已付款成功通知信。
+                                    </p>
+                                </li>
+                                <li class="accordion-item">
+                                    <div class="form-check">
+                                        <input type="checkbox" class="form-check-input" id="agreed">
+                                        <label class="form-check-label">我同意 <a
+                                                href="#">Le Goûter購物條款</a>*</label>
+                                    </div>
+                                </li>
+                                <li class="place-order">
+                                    <button type="button" class="default-btn two" id="checkout">
+                                        結帳
+                                    </button>
+
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+<!-- End Checkout Area -->
+
+
+<!-- 頁腳 -->
+<div th:insert="front-end/components/Footer :: #footer-div"></div>
+
+<!-- 版權所有 -->
+<div th:insert="front-end/components/Copyright :: #copyright-div"></div>
+
+
+<script data-cfasync="false" src="/Course/front-end/static/js/email-decode.min.js"></script>
+<script src="/Course/front-end/static/js/jquery-3.4.1.min.js" type="0080e6b992b21508d4c0eeae-text/javascript"></script>
+<script src="/Course/front-end/static/js/bootstrap.bundle.min.js"
+        type="0080e6b992b21508d4c0eeae-text/javascript"></script>
+<script src="/Course/front-end/static/js/wow.min.js" type="0080e6b992b21508d4c0eeae-text/javascript"></script>
+<script src="/Course/front-end/static/js/easing.min.js" type="0080e6b992b21508d4c0eeae-text/javascript"></script>
+<script src="/Course/front-end/static/js/waypoints.min.js" type="0080e6b992b21508d4c0eeae-text/javascript"></script>
+<script src="/Course/front-end/static/js/counterup.min.js" type="0080e6b992b21508d4c0eeae-text/javascript"></script>
+<script src="/Course/front-end/static/js/owl.carousel.min.js" type="0080e6b992b21508d4c0eeae-text/javascript"></script>
+
+<script src="/Course/front-end/static/js/main.js" type="0080e6b992b21508d4c0eeae-text/javascript"></script>
+<script src="/Course/front-end/static/js/rocket-loader.min.js" data-cf-settings="0080e6b992b21508d4c0eeae-|49"
+        defer=""></script>
+<!-- End Footer Top Area -->
+
+
+<!-- Jquery-3.5.1.Slim.Min.JS -->
+<script src="/Course/front-end/assets/js/jquery-3.5.1.slim.min.js"></script>
+<!-- Popper JS -->
+<script src="/Course/front-end/assets/js/popper.min.js"></script>
+<!-- Bootstrap JS -->
+<script src="/Course/front-end/assets/js/bootstrap.min.js"></script>
+<!-- Meanmenu JS -->
+<script src="/Course/front-end/assets/js/jquery.meanmenu.js"></script>
+<!-- Wow JS -->
+<script src="/Course/front-end/assets/js/wow.min.js"></script>
+<!-- Owl Carousel JS -->
+<script src="/Course/front-end/assets/js/owl.carousel.js"></script>
+<!-- Owl Magnific JS -->
+<script src="/Course/front-end/assets/js/jquery.magnific-popup.min.js"></script>
+<!-- Nice Select JS -->
+<script src="/Course/front-end/assets/js/jquery.nice-select.min.js"></script>
+<!-- Parallax JS -->
+<script src="/Course/front-end/assets/js/parallax.min.js"></script>
+<!-- Appear JS -->
+<script src="/Course/front-end/assets/js/jquery.appear.js"></script>
+<!-- Odometer JS -->
+<script src="/Course/front-end/assets/js/odometer.min.js"></script>
+<!-- Form Validator JS -->
+<script src="/Course/front-end/assets/js/form-validator.min.js"></script>
+<!-- Contact JS -->
+<script src="/Course/front-end/assets/js/contact-form-script.js"></script>
+<!-- Ajaxchimp JS -->
+<script src="/Course/front-end/assets/js/jquery.ajaxchimp.min.js"></script>
+<!-- Custom JS -->
+<script src="/Course/front-end/assets/js/custom.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js"></script>
+
+<script>
+    // console.log("location.href測試 " + window.location.href);
+    // console.log("測試取得路徑" + window.location.pathname);
+    // console.log("測試取得參數" + window.location.search);
+    // console.log(window.location.pathname + window.location.search);
+
+    // 姓名輸入區驗證
+    $("#receiverName").focus();
+        $("#receiverName").blur(function() {
+            let inputName = $(this).val();
+            let pattern = /^[a-zA-Z0-9\u4e00-\u9fa5]+$/;
+            if(!pattern.test(inputName)){
+                $("label[for='receiverName']").attr("style","color: red");
+                $("label[for='receiverName']").html("收件人姓名: *姓名只能包含英文、數字或中文");
+                $(this).val('');
+            }else {
+                $("label[for='receiverName']").attr("style","color: black");
+                $("label[for='receiverName']").html("收件人姓名 *");
+            }
+        });
+        
+     // 電話輸入區驗證
+     $("#receiverPhone").blur(function(){
+            let pattern = /^09\d{8}$/;
+            let inputPhone = $(this).val();
+
+            if(!pattern.test(inputPhone)){
+                $("label[for='receiverPhone']").attr("style","color: red");
+                $("label[for='receiverPhone']").html("收件人電話 *電話號碼必須是09開頭且總計十位數字");
+                $(this).val('');
+            } else {
+                $("label[for='receiverPhone']").attr("style","color: black");
+                $("label[for='receiverPhone']").html("收件人電話 *");
+            }
+        });
+    
+    // 地址輸入區驗證
+    $("#receiverAddress").blur(function(){
+        let pattern = /^[\u4e00-\u9fa5\d]+$/;
+        let inputAddress = $(this).val();
+
+        if(!pattern.test(inputAddress)){
+            $("label[for='receiverAddress']").attr("style","color: red");
+            $("label[for='receiverAddress']").html("收件人地址 *地址只能包含數字或中文");
+            $(this).val('');
+        } else {
+            $("label[for='receiverAddress']").attr("style","color: black");
+            $("label[for='receiverAddress']").html("收件人地址 *");
+        }
+    });
+
+
+    //即時反應計算
+    $("#theAmount").on("change", function() {
+        $("#outnumber").html($("#theAmount").val());
+        $("#outprice").html($("#setprice").val()*$("#theAmount").val());
+    });
+
+</script>
+
+<script>
+    $(document).ready(function () {
+        $("#outprice").html($("#setprice").val());
+
+        
+        $("#checkout").click(function (e) {
+            // let getradio = $(".accordion").find("input[type='radio']"); //舊
+            // let getradio = $(".accordion").find("input[type='radio']:checked").val(); //新
+            // console.log("觀察新getradio: " + getradio)
+            
+            // console.log("觀察getradio: " + getradio[0].value); //成功抓到radio元素，並且陣列[0]印出信用卡radio的值。
+            // console.log("觀察getradio: " + getradio[0].getAttribute("checked")) //改用新getradio的方式就不用了。
+            if ($("#receiverName").val() == "" || $("#receiverAddress").val() == "" || $("#receiverPhone").val() == "" || $("#receiverEmail").val() == "") {
+                alert('請填寫完整資料');
+            }else {
+                if (!$('#agreed').prop('checked')) {
+                    e.preventDefault();
+                    alert('請先勾選同意條款');
+                }else {
+                    var checkoutData = {
+                        groupOrderId: Number($("#groupOrderId").val()),
+                        memberId: Number($("#memberId").text()),
+                        groupOrderAmount: Number($("#theAmount").val()),
+                        groupProductPaying: $(".accordion").find("input[type='radio']:checked").val(),
+                        groupProductStatus: 1,
+                        groupProductOthers: $("#groupProductOthers").val(),
+                        receiverName: $("#receiverName").val(),
+                        receiverAddress: $("#receiverAddress").val(),
+                        receiverPhone: $("#receiverPhone").val(),
+                        receiverEmail: $("#receiverEmail").val(),
+                        groupActivityPrice: Number($("#setprice").val())
+                    };
+        
+                    $.ajax({
+                        url: '/groupActivity/CheckoutDetail',
+                        method: 'POST',
+                        data: JSON.stringify(checkoutData),
+                        contentType: 'application/json',
+                        beforeSend: function() {
+                            console.log("送出前確認:" + checkoutData);
+                        },
+                        success: function (response) {
+                            if (response.success == true) {
+                                alert('結帳成功! 返回團購平台');
+                                window.location.href="/group-shop";
+                            }
+                        },
+                        error: function (error) {
+        
+                        }
+                    });
+    
+                }
+            }
+        });
+
+        //一鍵輸入資料
+        $("#memcheck").change(function () {
+            $.ajax({
+                url: '/groupActivity/Checkout/OneMember',
+                method: 'POST',
+                // contentType: 'application/json',
+                data: { memberId: Number($("#memberId").text()) },
+                // beforeSend: function() {
+                //     // console.log("送出前確認:" + Number($("#memberId").text()));
+                //     console.log("送出前確認:" + JSON.stringify({ memberId: Number($("#memberId").text()) }));
+                // },
+                success: function (response) {
+                        $("#receiverName").val(response.memberName);
+                        $("#receiverAddress").val(response.memberAddress);
+                        $("#receiverPhone").val(response.memberPhone);
+                        $("#receiverEmail").val(response.memberEmail);
+                        document.getElementById("receiverName").focus();
+                        document.getElementById("receiverAddress").focus();
+                        document.getElementById("receiverPhone").focus();
+                        document.getElementById("receiverEmail").focus();
+                },
+                error: function (error) {
+
+                }
+            });
+        });
+    });
+    
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,526 @@
+﻿<!DOCTYPE html>
+<html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>甜點購物車</title>
+    <meta name="robots" content="noindex, follow"/>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!--    頁面的CSS-->
+    <!-- CSS
+	============================================ -->
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/Dessert/CSS/bootstrap.min.css">
+    <!-- FontAwesome -->
+    <!--    <link rel="stylesheet" href="/Dessert/CSS/font.awesome.min.css">-->
+    <!-- Ionicons -->
+    <!--    <link rel="stylesheet" href="/Dessert/CSS/ionicons.min.css">-->
+    <!-- Slick CSS -->
+    <link rel="stylesheet" href="/Dessert/CSS/slick.min.css">
+    <!-- Animation -->
+    <link rel="stylesheet" href="/Dessert/CSS/animate.min.css">
+    <!-- jQuery Ui -->
+    <link rel="stylesheet" href="/Dessert/CSS/jquery-ui.min.css">
+    <!-- Nice Select -->
+    <link rel="stylesheet" href="/Dessert/CSS/nice-select.min.css">
+    <!-- Magnific Popup -->
+    <link rel="stylesheet" href="/Dessert/CSS/magnific-popup.css">
+
+
+    <!--    頁面css-->
+    <link rel="stylesheet" href="/Dessert/CSS/app.min.css" type="text/css">
+
+    <link href="/Commom/css/all.min.css" rel="stylesheet">
+
+
+    <link href="/Dessert/CSS/bootstrap1.min.css" rel="stylesheet">
+
+    <link href="/Dessert/CSS/style.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="/Dessert/CSS/stylev.css">
+</head>
+
+<body>
+<!-- preloader -->
+<div class="preloader">
+    <img src="/Dessert/picture/logo.svg" alt="logo">
+    <div class="preloader-icon"></div>
+</div>
+<!-- ./ preloader -->
+
+<div id="header-div"></div>
+
+
+<div id="nav-div"></div>
+
+
+<!-- cart main wrapper start -->
+
+<div class="cart-main-wrapper mt-no-text mb-no-text" style="margin-top: 150px;">
+    <div class="container container-default-2 custom-area">
+        <div class="row">
+            <div class="col-lg-12">
+                <!-- Cart Table Area -->
+                <p style="display: none" th:text="${memberId}" id="member-id"></p>
+                <div class="cart-table table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th class="pro-thumbnail">甜點圖示</th>
+                            <th class="pro-title">甜點名稱</th>
+                            <th class="pro-price">單價</th>
+                            <th class="pro-quantity">數量</th>
+                            <th class="pro-subtotal">小計</th>
+                            <th class="pro-remove">移除</th>
+                        </tr>
+                        </thead>
+                        <tbody id="dessertCart">
+
+                        </tbody>
+                    </table>
+                </div>
+                <!-- Cart Update Option -->
+                <div class="cart-update-option d-block d-md-flex justify-content-between">
+                    <div class="apply-coupon-wrapper">
+                        <form action="#" method="post" class="d-block d-md-flex">
+                            <select required>
+                                <option value="" disabled selected>選擇折價券</option>
+                                <option value="coupon1">不使用</option>
+                                <option value="coupon2">滿500折價20元</option>
+                                <option value="coupon3">滿1000折價50元</option>
+                                <!-- 添加更多选项 -->
+                            </select>
+                            <button class="btn obrien-button primary-btn">提交折價券</button>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-5 ml-auto">
+                <!-- Cart Calculation Area -->
+                <div class="cart-calculator-wrapper">
+                    <div class="cart-calculate-items">
+                        <h3>應付總金額</h3>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <tr>
+                                    <td>甜點總金額</td>
+                                    <td>$</td>
+                                </tr>
+                                <tr>
+                                    <td>運費</td>
+                                    <td id="shipping-fee">$</td>
+                                </tr>
+                                <tr>
+                                    <td>折扣金額</td>
+                                    <td>-$0</td>
+                                </tr>
+                                <tr class="total">
+                                    <td>應付總額</td>
+                                    <td class="total-amount">$3</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <a id="checkout-button" class="btn obrien-button primary-btn d-block">填寫收件資訊&結帳</a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- cart main wrapper end -->
+
+<div id="footer-div"></div>
+
+<div id="copyright-div"></div>
+
+<!--購物車-->
+<script src="/Conponents/front_end.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    let cartClassItems;
+
+    function deleteDessertCart(dessertId, memberId) {
+        $.ajax({
+            url: '/dessertCart/delete',
+            type: 'POST',
+            data: {
+                dessertId: dessertId
+            },
+            success: function (response) {
+                console.log("Product removed successfully.");
+                // 移除行
+                $('[data-dessert-id="' + dessertId + '"]').remove();
+                if ($('tr[data-dessert-id]').length === 0) {
+                    // Disable the checkout button
+                    $("#checkout-button").off("click");
+                    $("#checkout-button").on("click", function (event) {
+                        event.preventDefault();
+                        alert("購物車內沒有商品");
+                    });
+                }
+                //呼叫更新函數
+                dessertCartUpdate();
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                console.error(xhr);
+            }
+        });
+    }
+
+
+    function removeProduct(event) {
+        event.preventDefault(); // 阻止預設的連結點擊行為
+
+        Swal.fire({
+            title: '確定移除商品?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: '確定!',
+            cancelButtonText: '取消!'
+
+        }).then((result) => {
+            if (result.isConfirmed) {
+                var row = event.target.closest("tr"); // 找到最接近的父元素 <tr>
+
+                //獲取商品id
+                var dessertId = row.getAttribute("data-dessert-id");
+
+                // 發送請求到後端
+                deleteDessertCart(dessertId);
+
+                row.remove(); // 移除該行
+
+                Swal.fire(
+                    '刪除!',
+                    '您的商品已移除',
+                    '成功'
+                )
+            }
+        });
+    }
+
+    dessertCartUpdate();
+
+    function dessertCartUpdate() {
+        //顯示訂單
+        $(document).ready(function () {
+            $("form button").click(function (e) {
+                e.preventDefault(); // 阻止默认的提交行为
+
+                let totalAmount = parseFloat($("table tr td:contains('甜點總金額')").next('td').text().replace('$', ''));
+                let selectedCoupon = $('form select').val();
+                let discountAmount;
+
+                switch (selectedCoupon) {
+                    case "coupon1":
+
+                        discountAmount = 0;
+
+                        break;
+                    case "coupon2":
+                        if (totalAmount >= 500) {
+                            discountAmount = 20;
+                        } else {
+                            alert(`還差 ${500 - totalAmount} 元可以使用此折價券`);
+                            return;
+                        }
+                        break;
+                    case "coupon3":
+                        if (totalAmount >= 1000) {
+                            discountAmount = 50;
+                        } else {
+                            alert(`還差 ${1000 - totalAmount} 元可以使用此折價券`);
+                            return;
+                        }
+                        break;
+                    default:
+                        alert('請選擇折價券');
+                        return;
+                }
+
+                // 更新折扣金額
+                $("table tr td:contains('折扣金額')").next('td').text("$" + discountAmount);
+                // 更新應付總額
+                let shippingFee = $("table tr td:contains('運費')").next('td').text();
+                updateFinalAmount(totalAmount, shippingFee);
+            });
+            let memberId = $('#member-id').text().trim();
+
+            $("#checkout-button").on("click", function () {
+                window.location.href = `/dessertCart/checkOut`;
+            });
+
+            $.ajax({
+                url: `/dessertCart/data/${memberId}`,
+                type: 'GET',
+                dataType: 'json',
+                success: function (res) {
+                    if (res.length === 0) {
+                        $(".container.container-default-2.custom-area").hide();
+                        let emptyCartMsg = `
+                         <div class="empty-cart-message" style="text-align: center; margin-top: 100px;">
+                         <h2>親，您的購物車沒有好吃的甜點唷！</h2>
+                         <a href="/dessertshop/shopAndproduct/shop.html" class="btn obrien-button primary-btn" style="margin-top: 20px;">前往甜點商城</a>
+                        </div>`;
+                        $("#footer-div").before(emptyCartMsg);
+                        $("#checkout-button").off("click");
+                        $("#checkout-button").on("click", function (event) {
+                            event.preventDefault();
+                            alert("購物車內沒有商品");
+                        });
+                    }
+                    console.log(res);
+                    cartClassItems = res;
+                    let th_html = ``;
+                    console.log(th_html);
+                    let totalAmount = 0;
+                    for (let e = 0; e < res.length; e++) {
+                        let td_html = `
+                      <tr data-dessert-id="${res[e].dessertId}">
+                         <td>
+                        <img src="/dessert5/image0?dessertId=${res[e].dessertId}" alt="#" style="width: 640px;">
+                            </td>
+                             <td class="pro-title"><a href="#">${res[e].dessertName}</a></td>
+                            <td class="pro-price"><span>$${res[e].dessertPrice}</span></td>
+                            <td class="pro-quantity">
+                                <div class="quantity">
+                                    <div class="cart-plus-minus">
+                                     <input class="cart-plus-minus-box" oninput="updateDessertCartQuantity(${res[e].dessertId}, ${res[e].memberId}, this.value)" value="${res[e].cartDessertQuantity}" type="text" data-old-value="${res[e].cartDessertQuantity}">
+
+                                      <div class="dec qtybutton" onclick="updateDessertCartQuantity(${res[e].dessertId}, ${res[e].memberId},  parseInt($(this).siblings('.cart-plus-minus-box').val())  - 1, $(this))">-</div>
+                                      <div class="inc qtybutton" onclick="updateDessertCartQuantity(${res[e].dessertId}, ${res[e].memberId}, parseInt($(this).siblings('.cart-plus-minus-box').val()) + 1, $(this))">+</div>
+                                    </div>
+                                </div>
+                            </td>
+                        <td class="pro-subtotal"><span>$${res[e].subtotalAmount}</span></td>
+
+                        <td class="pro-remove"><a href="#" onclick="removeProduct(event)">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="1.5em" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><style>svg{fill:#e98c81}</style><path d="M135.2 17.7C140.6 6.8 151.7 0 163.8 0H284.2c12.1 0 23.2 6.8 28.6 17.7L320 32h96c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 96 0 81.7 0 64S14.3 32 32 32h96l7.2-14.3zM32 128H416V448c0 35.3-28.7 64-64 64H96c-35.3 0-64-28.7-64-64V128zm96 64c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16z"/></svg></a></td>
+                    </tr>`;
+                        th_html += td_html;
+                        // 累加每个商品的小计金额
+                        totalAmount += res[e].subtotalAmount;
+
+                    }
+                    // 将累加的总额更新到甜点总金额处
+                    $("table tr td:contains('甜點總金額')").next('td').text("$" + totalAmount);
+                    updateShippingFee(totalAmount);
+                    updateFinalAmount(totalAmount, $("table tr td:contains('運費')").next('td').text());
+                    $("#dessertCart").html(th_html);
+
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    console.error(xhr);
+
+                }
+            });
+        });
+    }
+
+    function updateShippingFee(totalAmount) {
+        let shippingFee = totalAmount > 500 ? 'Free' : '$100';
+        $("table tr td:contains('運費')").next('td').text(shippingFee);
+        updateFinalAmount(totalAmount, shippingFee);
+    }
+
+    // function updateFinalAmount(totalAmount, shippingFee) {
+    //     let discountAmount = parseFloat($("table tr td:contains('折扣金額')").next('td').text().replace('$', ''));
+    //     let finalAmount = totalAmount - discountAmount;
+    //     if (shippingFee != 'Free') {
+    //         finalAmount += parseFloat(shippingFee.replace('$', ''));
+    //     }
+    //     $("table tr td:contains('應付總額')").next('td').text("$" + Math.round(finalAmount));
+    // }
+
+    function updateFinalAmount(totalAmount, shippingFee) {
+        let discountElement = $("table tr td:contains('折扣金額')").next('td');
+        let discountAmount = parseFloat(discountElement.text().replace('$', ''));
+        if (isNaN(discountAmount)) {
+            // 折扣金額無法解析為數字，將其設為 0
+            discountAmount = 0;
+        }
+        let formattedDiscount = `($ ${Math.abs(discountAmount)})`;
+        if (discountAmount < 0) {
+            formattedDiscount = `(${formattedDiscount})`;
+        }
+        discountElement.html("<span style='color: red;'>" + formattedDiscount + "</span>");
+
+        let finalAmount = totalAmount - discountAmount;
+        if (shippingFee !== 'Free') {
+            finalAmount += parseFloat(shippingFee.replace('$', ''));
+        }
+        $("table tr td:contains('應付總額')").next('td').text("$ " + Math.round(finalAmount));
+    }
+
+
+    $(document).on('input', '.cart-plus-minus-box', function () {
+        // Parse the input value as an integer
+        let inputQuantity = this.value;
+
+
+        // Validate the quantity
+        if (!/^\d+$/.test(inputQuantity) || inputQuantity < 1 || inputQuantity > 50) {
+            alert("請輸入有效數字1-50");
+            $(this).val($(this).data('oldValue')); // restore old value
+            return;
+        }
+
+        $(this).data('oldValue', inputQuantity);
+
+        // Use the valid input value for the AJAX call
+        let dessertId = $(this).closest('tr').data('dessert-id');
+        let memberId = $("#member-id").text();
+
+        updateDessertCartQuantity(dessertId, memberId, inputQuantity);
+    });
+
+    $(document).on('focus', '.cart-plus-minus-box', function () {
+        // Store the current value as the old value
+        $(this).data('oldValue', this.value);
+    });
+
+
+    function updateDessertCartQuantity(dessertId, memberId, cartDessertQuantity, increaseBtn) {
+
+        // Parse the input value as an integer
+        let parsedQuantity = parseInt(cartDessertQuantity);
+
+        // Validate the quantity
+        if (isNaN(cartDessertQuantity) || cartDessertQuantity < 1 || cartDessertQuantity > 50) {
+            if (increaseBtn.hasClass("dec")) {
+                if (cartDessertQuantity === 0) {
+                    Swal.fire({
+                        title: '確定移除商品?',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: '確定!',
+                        cancelButtonText: '取消!'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            deleteDessertCart(dessertId, memberId);
+                            Swal.fire(
+                                '刪除!',
+                                '你的商品已移除',
+                                '成功'
+                            )
+                        } else {
+                            dessertCartUpdate();
+                        }
+                    })
+                }
+                return;
+            } else if (increaseBtn.hasClass("inc")) {
+                if (cartDessertQuantity > 50) {
+                    Swal.fire({
+                        title: '單項甜點訂購數量上限為50',
+                        width: 600,
+                        padding: '3em',
+                        color: '#716add',
+                        background: '#fff url(/Dessert/picture/back.jpg)',
+                        backdrop: `
+                rgba(0,0,123,0.4)
+                url("/Dessert/picture/chen.gif")
+                top
+                no-repeat
+            `
+                    });
+                    dessertCartUpdate();
+                }
+            }
+            return;
+        }
+        $(increaseBtn).siblings(".cart-plus-minus-box").val(cartDessertQuantity);
+
+
+        function updateTotalAmount() {
+            let totalAmount = 0;
+            $("#dessertCart .pro-subtotal span").each(function () {
+                totalAmount += parseFloat($(this).text().replace('$', ''));
+            });
+            $("table tr td:contains('甜點總金額')").next('td').text("$" + Math.round(totalAmount));
+            updateShippingFee(totalAmount);
+        }
+
+
+        $.ajax({
+            url: '/dessertCart/update',
+            type: 'POST',
+            data: {
+                dessertId: dessertId,
+                memberId: memberId,
+                cartDessertQuantity: cartDessertQuantity
+            },
+            success: function (response) {
+                // Update the subtotal dynamically
+                let newSubtotal = Math.floor(response.subtotalAmount);
+
+                // Check if increaseBtn is provided
+                if (increaseBtn) {
+                    $(increaseBtn).closest("tr").find(".pro-subtotal span").text("$" + newSubtotal);
+                } else {
+                    // If increaseBtn is not provided, that means the input box was used. We need to find the corresponding subtotal span
+                    $('[data-dessert-id="' + dessertId + '"]').find(".pro-subtotal span").text("$" + newSubtotal);
+                }
+
+                // Update the total amount
+                updateTotalAmount();
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                console.error(xhr);
+            }
+        });
+    }
+
+    $(window).on('load', function () {
+        $('.preloader').hide();
+    });
+
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script data-cfasync="false" src="/Dessert/JS/SAM/email-decode.min.js"></script>
+<script src="/Dessert/JS/SAM/main.js" type="0080e6b992b21508d4c0eeae-text/javascript"></script>
+<script src="/Dessert/JS/SAM/rocket-loader.min.js" data-cf-settings="0080e6b992b21508d4c0eeae-|49" defer=""></script>
+
+
+<!-- JS
+============================================ -->
+
+
+<!-- jQuery Migrate JS -->
+<script src="/Dessert/JS/jQuery-migrate-3.3.0.min.js"></script>
+<!-- Modernizer JS -->
+<script src="/Dessert/JS/modernizr-2.8.3.min.js"></script>
+<!-- Bootstrap JS -->
+<script src="/Dessert/JS/bootstrap.bundle.min.js"></script>
+<!-- Slick Slider JS -->
+<script src="/Dessert/JS/slick.min.js"></script>
+<!-- Countdown JS -->
+<script src="/Dessert/JS/jquery.countdown.min.js"></script>
+<!-- Ajax JS -->
+<script src="/Dessert/JS/jquery.ajaxchimp.min.js"></script>
+<!-- Jquery Nice Select JS -->
+<script src="/Dessert/JS/jquery.nice-select.min.js"></script>
+<!-- Jquery Ui JS -->
+<script src="/Dessert/JS/jquery-ui.min.js"></script>
+<!-- jquery magnific popup js -->
+<script src="/Dessert/JS/jquery.magnific-popup.min.js"></script>
+
+<!-- Main JS -->
+<script src="/Dessert/JS/main.js"></script>
+
+</body>
+
+</html>

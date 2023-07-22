@@ -1,0 +1,346 @@
+<!doctype html>
+
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- Owl Theme Default CSS -->
+    <link rel="stylesheet" href="/Course/front-end/assets/css/owl.theme.default.min.css">
+    <!-- Owl Carousel CSS -->
+    <link rel="stylesheet" href="/Course/front-end/assets/css/owl.carousel.min.css">
+    <!-- Owl Magnific CSS -->
+    <link rel="stylesheet" href="/Course/front-end/assets/css/magnific-popup.css">
+    <!-- Animate CSS -->
+    <link rel="stylesheet" href="/Course/front-end/assets/css/animate.css">
+    <!-- Boxicons CSS -->
+    <link rel="stylesheet" href="/Course/front-end/assets/css/boxicons.min.css">
+    <!-- Flaticon CSS -->
+    <link rel="stylesheet" href="/Course/front-end/assets/css/flaticon.css">
+    <!-- Meanmenu CSS -->
+    <link rel="stylesheet" href="/Course/front-end/assets/css/meanmenu.css">
+    <!-- Nice Select CSS -->
+    <link rel="stylesheet" href="/Course/front-end/assets/css/nice-select.css">
+    <!-- Odometer CSS-->
+    <link rel="stylesheet" href="/Course/front-end/assets/css/odometer.css">
+    <!-- Style CSS -->
+    <link rel="stylesheet" href="/Course/front-end/assets/css/style.css">
+    <!-- Responsive CSS -->
+    <link rel="stylesheet" href="/Course/front-end/assets/css/responsive.css">
+
+
+    <link rel="preconnect" href="https://fonts.googleapis.com/">
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+    <link href="/Commom/css/css2.css" rel="stylesheet">
+
+    <link href="/Commom/css/all.min.css" rel="stylesheet">
+    <link href="/Commom/css/bootstrap-icons.css" rel="stylesheet">
+
+    <link href="/Commom/css/animate.min.css" rel="stylesheet">
+    <link href="/Commom/css/owl.carousel.min.css" rel="stylesheet">
+
+    <link href="/Course/front-end/static/css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="/Commom/css/style.css" rel="stylesheet">
+    <!-- Title -->
+    <title>Le Goûter</title>
+    <style>
+        h2#swal2-title {
+            font-size: 33px;
+        }
+
+    </style>
+</head>
+
+<body>
+
+<!-- 頁首 -->
+<div th:insert="front-end/components/Header :: #header-div"></div>
+<!-- 導覽列 -->
+<div th:insert="front-end/components/NavBar :: #nav-bar"></div>
+
+
+<!-- Start Page Title Area -->
+<div class="page-title-area bg-4">
+    <div class="container">
+        <div class="page-title-content">
+            <h2>甜點課程結帳</h2>
+            <!--            <a style="display: none" id="course-id" th:text="${course.getCourseId()} "></a>-->
+            <ul>
+                <li>
+                    <a th:href="@{/LeGouter}">
+                        Home
+                    </a>
+                </li>
+
+                <li class="active">甜點課程結帳</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- End Page Title Area -->
+
+
+<!-- Start Checkout Area -->
+<section class="checkout-area ptb-100">
+    <div class="container">
+        <form>
+            <div class="row">
+                <div class="col-lg-8 col-md-12">
+                    <div class="billing-details">
+                        <h3 class="title">結帳資料</h3>
+                        <a style="display: none" id="courseId" th:text="${checkout.getCourseId()}"></a>
+
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12">
+                                <a style="display: none" id="memberId" th:text="${checkout.getMemberId()}"></a>
+                                <!--                                <div class="form-group">-->
+                                <!--                                    <label>會員編號 <span class="required"></span></label>-->
+                                <!--                                    </label>-->
+                                <!--                                </div>-->
+                            </div>
+                            <div class="col-lg-12 col-md-12">
+                                <div class="form-group">
+                                    <label>姓名 <span class="required">*</span></label>
+                                    </label>
+                                    <input type="text" class="form-control" id="memberName"
+                                           th:value="${checkout.getMemberName()}" readonly>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-12 col-md-12">
+                                <div class="form-group">
+                                    <label>Email <span class="required">*</span></label>
+                                    <input type="email" class="form-control" id="memberEmail"
+                                           th:value="${checkout.getMemberEmail()}" readonly>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-12 col-md-12">
+                                <div class="form-group">
+                                    <label>電話 <span class="required">*</span></label>
+                                    <input type="text" class="form-control" id="memberPhone"
+                                           th:value="${checkout.getMemberPhone()}" readonly>
+                                </div>
+                            </div>
+                            <div class="col-lg-12 col-md-12">
+                                <div class="form-group">
+                                    <label>優惠券 <span class="required"></span></label>
+                                    <select required class="form-control" id="cp-select">
+                                        <option value="0" name="0" selected>未使用優惠券</option>
+                                        <option th:each="cp : ${cplist}" th:value="${cp.getCpId()}"
+                                                th:name="${cp.getDiscount()}" th:text="${cp.getCpName()}"></option>
+                                    </select>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-12">
+                    <div class="order-details">
+                        <div class="cart-totals">
+                            <h3>結帳明細</h3>
+                            <ul>
+                                <li>課程名稱:</li>
+                                <li id="courseName" th:text="${checkout.getCourseName()}"></li>
+                                <li>折扣:</li>
+                                <li id="courseDiscountPrice"></li>
+                                <li>總金額:</li>
+                                <li id="coursePrice" th:text="${checkout.getCoursePrice()}"></li>
+                            </ul>
+                        </div>
+                        <div class="faq-accordion">
+                            <h3>付款方式</h3>
+                            <ul class="accordion">
+                                <li class="accordion-item">
+                                    <input type="radio" id="creditCard" name="paymentMethod">
+                                    <label for="creditCard">信用卡</label>
+                                    <p class="accordion-content">
+                                        若使用拍付信用卡付款，系統會引導信用卡網頁填寫信用卡資料。經確認付款成功，系統將主動發出已付款成功通知信。
+                                    </p>
+                                </li>
+                                <li class="accordion-item">
+                                    <input type="radio" id="bankTransfer" name="paymentMethod">
+                                    <label for="bankTransfer">匯款</label>
+                                    <p class="accordion-content">
+                                        若使用匯款，系統會給予一組16碼的ATM轉帳帳號，買家可以列印或抄下帳號到外面的ATM提款機轉帳。經確認付款成功，系統會發出已付款成功通知信。
+                                    </p>
+                                </li>
+                                <li class="accordion-item">
+                                    <div class="form-check">
+                                        <input type="checkbox" class="form-check-input" id="agreed">
+                                        <label class="form-check-label">我同意 <a
+                                                href="#">Le Goûter購物條款</a>*</label>
+                                    </div>
+                                </li>
+                                <li class="place-order">
+                                    <button class="default-btn two" id="checkout">
+                                        結帳
+                                    </button>
+
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+<!-- End Checkout Area -->
+
+<!-- Start Footer Top Area -->
+<!-- 頁腳 -->
+<div th:insert="front-end/components/Footer :: #footer-div"></div>
+<!-- 版權所有 -->
+<div th:insert="front-end/components/Copyright :: #copyright-div"></div>
+
+<script data-cfasync="false" src="/Course/front-end/static/js/email-decode.min.js"></script>
+<script src="/Course/front-end/static/js/jquery-3.4.1.min.js" type="0080e6b992b21508d4c0eeae-text/javascript"></script>
+<script src="/Course/front-end/static/js/bootstrap.bundle.min.js"
+        type="0080e6b992b21508d4c0eeae-text/javascript"></script>
+<script src="/Course/front-end/static/js/wow.min.js" type="0080e6b992b21508d4c0eeae-text/javascript"></script>
+<script src="/Course/front-end/static/js/easing.min.js" type="0080e6b992b21508d4c0eeae-text/javascript"></script>
+<script src="/Course/front-end/static/js/waypoints.min.js" type="0080e6b992b21508d4c0eeae-text/javascript"></script>
+<script src="/Course/front-end/static/js/counterup.min.js" type="0080e6b992b21508d4c0eeae-text/javascript"></script>
+<script src="/Course/front-end/static/js/owl.carousel.min.js" type="0080e6b992b21508d4c0eeae-text/javascript"></script>
+
+<script src="/Course/front-end/static/js/main.js" type="0080e6b992b21508d4c0eeae-text/javascript"></script>
+<script src="/Course/front-end/static/js/rocket-loader.min.js" data-cf-settings="0080e6b992b21508d4c0eeae-|49"
+        defer=""></script>
+<!-- End Footer Top Area -->
+
+
+<!-- Jquery-3.5.1.Slim.Min.JS -->
+<script src="/Course/front-end/assets/js/jquery-3.5.1.slim.min.js"></script>
+<!-- Popper JS -->
+<script src="/Course/front-end/assets/js/popper.min.js"></script>
+<!-- Bootstrap JS -->
+<script src="/Course/front-end/assets/js/bootstrap.min.js"></script>
+<!-- Meanmenu JS -->
+<script src="/Course/front-end/assets/js/jquery.meanmenu.js"></script>
+<!-- Wow JS -->
+<script src="/Course/front-end/assets/js/wow.min.js"></script>
+<!-- Owl Carousel JS -->
+<script src="/Course/front-end/assets/js/owl.carousel.js"></script>
+<!-- Owl Magnific JS -->
+<script src="/Course/front-end/assets/js/jquery.magnific-popup.min.js"></script>
+<!-- Nice Select JS -->
+<script src="/Course/front-end/assets/js/jquery.nice-select.min.js"></script>
+<!-- Parallax JS -->
+<script src="/Course/front-end/assets/js/parallax.min.js"></script>
+<!-- Appear JS -->
+<script src="/Course/front-end/assets/js/jquery.appear.js"></script>
+<!-- Odometer JS -->
+<script src="/Course/front-end/assets/js/odometer.min.js"></script>
+<!-- Form Validator JS -->
+<script src="/Course/front-end/assets/js/form-validator.min.js"></script>
+<!-- Contact JS -->
+<script src="/Course/front-end/assets/js/contact-form-script.js"></script>
+<!-- Ajaxchimp JS -->
+<script src="/Course/front-end/assets/js/jquery.ajaxchimp.min.js"></script>
+<!-- Custom JS -->
+<script src="/Course/front-end/assets/js/custom.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+    $(document).ready(function () {
+        let niceSelectDiv = $("div.nice-select");
+        niceSelectDiv.hide();
+        $("#cp-select").show();
+
+        let price = $("#coursePrice").text();
+
+        $("#cp-select").change(function () {
+            let cpid = $(this).val();
+            console.log(cpid);
+            // 印出選項的name屬性的值
+            let cpname = $(this).find("option:selected").attr("name");
+            $("#courseDiscountPrice").text(cpname);
+            console.log(cpname);
+
+            // 將總金額跟折扣金額相減
+            let total = price - cpname;
+            $("#coursePrice").text(total);
+        });
+
+
+        let courseId = (new URL(document.location)).searchParams.get("courseId");
+        $("#checkout").click(function (e) {
+            let paymentMethodSelected = document.querySelector('input[name="paymentMethod"]:checked');
+            let termsAgreed = document.getElementById('agreed').checked;
+
+            if (!paymentMethodSelected) {
+                Swal.fire('請選擇付款方式！');
+                e.preventDefault();
+                return;
+            }
+
+            if (!termsAgreed) {
+                Swal.fire('請記得勾選同意購物條款');
+                e.preventDefault();
+                return;
+            }
+            e.preventDefault(); // 阻止按钮的默认行为
+
+            // val, text要跟著標籤變動
+            let checkoutData = {
+                cpId: $('#cp-select').val(),
+                memberId: $('#memberId').text(),
+                memberName: $('#memberName').val(),
+                memberEmail: $('#memberEmail').val(),
+                memberPhone: $('#memberPhone').val(),
+                courseId: courseId,
+                coursePrice: price
+            };
+            console.log(checkoutData)
+
+            $.ajax({
+                url: '/course/checkoutdata',
+                method: 'POST',
+                data: JSON.stringify(checkoutData),
+                contentType: 'application/json',
+                success: function (response) {
+
+                    Swal.fire({
+                        title: '結帳成功！要認真上課哦:)',
+                        width: 800,
+                        padding: '3em',
+                        color: '#rgb(20, 20, 90)',
+                        background: 'rgb(255 255 255 / 86%)',
+                        backdrop: `
+                                    rgba(255, 193, 77,0.4)
+                                    url("/Course/images/coin.gif")
+                                    top
+                                    repeat
+                                `
+                    }).then((result) => {
+                        // Check if the user clicked "OK"
+                        if (result.isConfirmed) {
+                            location.href = '/course/order/member'; // 指定跳转的页面URL
+                        }
+                    });
+                },
+                error: function (error) {
+
+                    console.error(error);
+                }
+            });
+        });
+    });
+
+</script>
+
+
+</body>
+
+</html>

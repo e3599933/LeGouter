@@ -1,0 +1,528 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>甜點訂單結帳</title>
+    <meta name="robots" content="noindex, follow"/>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- CSS
+	============================================ -->
+    <style>
+        .form-row {
+            display: flex;
+            align-items: center;
+        }
+
+        .form-row .remember-login {
+            margin-left: 60px;
+        }
+
+        #showlogin {
+            color: #007BFF;
+            transition: color 0.01s;
+        }
+
+        #showlogin:active {
+            color: #EA6636;
+        }
+
+        .col + .col::before {
+            content: "-";
+            position: absolute;
+            margin-left: -15px;
+            margin-top: 7px;
+        }
+
+        .error-message {
+            color: red;
+            display: none;
+        }
+
+    </style>
+    <link rel="stylesheet" href="/Dessert/CSS/app.min.css" type="text/css">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/Dessert/CSS/bootstrap.min.css">
+    <!-- FontAwesome -->
+    <!-- <link rel="stylesheet" href="assets/css/vendor/font.awesome.min.css"> -->
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="/Dessert/CSS/ionicons.min.css">
+    <!-- Slick CSS -->
+    <link rel="stylesheet" href="/Dessert/CSS/slick.min.css">
+    <!-- Animation -->
+    <link rel="stylesheet" href="/Dessert/CSS/animate.min.css">
+    <!-- jQuery Ui -->
+    <link rel="stylesheet" href="/Dessert/CSS/jquery-ui.min.css">
+    <!-- Nice Select -->
+    <link rel="stylesheet" href="/Dessert/CSS/nice-select.min.css">
+    <!-- Magnific Popup -->
+    <link rel="stylesheet" href="/Dessert/CSS/magnific-popup.css">
+
+    <link href="/Commom/css/all.min.css" rel="stylesheet">
+
+    <link href="/Dessert/CSS/bootstrap1.min.css" rel="stylesheet">
+
+    <link href="/Dessert/CSS/style.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="/Dessert/CSS/stylev.css">
+    <style>
+        .payment-option.active {
+            color: #EA6636;
+            /* 设置选中付款方式后的字体颜色 */
+        }
+    </style>
+
+</head>
+
+<body>
+<!-- preloader -->
+<div class="preloader">
+    <img src="/Dessert/picture/logo.svg" alt="logo">
+    <div class="preloader-icon"></div>
+</div>
+<!-- ./ preloader -->
+<div id="header-div"></div>
+
+
+<div id="nav-div"></div>
+
+
+<!-- Breadcrumb Area Start Here -->
+<div class="breadcrumbs-area position-relative" style="margin-top: 45px;">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center">
+                <div class="breadcrumb-content position-relative section-content">
+                    <h3 class="title-3">甜點訂單結帳</h3>
+                    <ul>
+                        <li><a href="http://localhost:8080/dessertshop/shopAndproduct/shop.html">瀏覽甜點</a></li>
+                        <li>結帳頁面</li>
+                    </ul>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Breadcrumb Area End Here -->
+<!-- Checkout Area Start Here -->
+
+
+<div class="checkout-area">
+    <div class="container container-default-2 custom-container">
+        <div class="row">
+            <div class="col-12">
+
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6 col-12">
+                <form action="#">
+                    <div class="checkbox-form">
+                        <h3>訂購資訊</h3>
+                        <div class="row">
+
+                            <div class="col-md-6">
+                                <div class="checkout-form-list">
+                                    <label>姓名 <span class="required">*</span></label>
+                                    <input id="name" placeholder="" type="text" name="receiverName">
+                                    <span id="name-error" class="error-message"></span>
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-12">
+                                <div class="checkout-form-list">
+                                    <label>運送地址 <span class="required">*</span></label>
+                                    <input id="receiverAddress" placeholder="請輸入地址" type="text"
+                                           name="receiverAddress">
+                                    <span id="address-error" class="error-message"></span>
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-6">
+                                <div class="checkout-form-list">
+                                    <label>Email <span class="required">*</span></label>
+                                    <input id="receiverEmail" placeholder="" type="email" name="receiverEmail">
+                                    <span id="email-error" class="error-message"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="checkout-form-list">
+                                    <label>連絡電話 <span class="required">*</span></label>
+                                    <input id="phone" type="text" name="receiverPhone">
+                                    <span id="phone-error" class="error-message"></span>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+            <div class="col-lg-6 col-12">
+                <div class="your-order">
+                    <h3>您的甜點訂單</h3>
+                    <div class="your-order-table table-responsive">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th class="cart-product-name">甜點名稱</th>
+                                <th class="cart-product-total">總金額</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr class="cart_item" th:each="item : ${dessertCartList}">
+                                <td class="cart-product-name"><span th:text="${item.dessertName}"></span><strong
+                                        class="product-quantity">
+                                    × <span th:text="${item.cartDessertQuantity}"></span></strong></td>
+                                <td class="cart-product-total text-center"><span class="amount">$<span
+                                        th:text="${item.subtotalAmount}"></span></span></td>
+                            </tr>
+
+                            <tr class="cart_item">
+                                <td class="cart-product-name">甜點總金額</td>
+                                <td class="cart-product-total text-center"><span class="amount">$<span
+                                        th:text="${total}"></span></span></td>
+                            </tr>
+
+
+                            <tr class="cart_item">
+                                <td class="cart-product-name"> 運費<strong class="product-quantity">
+                                </strong></td>
+                                <td class="cart-product-total text-center">
+                                    <span class="amount">$<span th:text="${shippingCost}"></span></span>
+                                    <input type="hidden" name="shippingCost" value="${shippingCost}">
+                                </td>
+                            </tr>
+
+                            <tr class="cart_item">
+                                <td class="cart-product-name"> 折扣金額<strong class="product-quantity">
+                                </strong></td>
+                                <td class="cart-product-total text-center"><span class="amount">-$50</span></td>
+                            </tr>
+                            </tbody>
+                            <tfoot>
+
+                            <tr class="order-total">
+                                <th>訂單總金額</th>
+                                <td class="text-center"><strong><span class="amount">$<span
+                                        th:text="${total + shippingCost - 50}"></span></span></strong></td>
+                            </tr>
+
+                            </tfoot>
+                        </table>
+                    </div>
+                    <div class="payment-method">
+                        <div class="payment-accordion">
+                            <div id="accordion">
+                                <!--                                <div class="card">-->
+                                <!--                                    <div class="card-header" id="payment-1">-->
+                                <!--                                        <h5 class="panel-title mb-2">-->
+                                <!--                                            <a href="#" class="payment-option" data-toggle="collapse"-->
+                                <!--                                               data-target="#collapseOne" aria-expanded="true"-->
+                                <!--                                               aria-controls="collapseOne">-->
+                                <!--                                                銀行轉帳-->
+                                <!--                                            </a>-->
+                                <!--                                        </h5>-->
+                                <!--                                    </div>-->
+                                <!--                                    <div id="collapseOne" class="collapse" aria-labelledby="payment-1"-->
+                                <!--                                         data-parent="#accordion">-->
+                                <!--                                        <div class="card-body mb-2 mt-2">-->
+                                <!--                                            <p>匯款資訊</p>-->
+                                <!--                                            <p>戶名：LE</p>-->
+                                <!--                                            <p>第一銀行，華山分行（007）</p>-->
+                                <!--                                            <p>帳號：123456789</p>-->
+                                <!--                                        </div>-->
+                                <!--                                    </div>-->
+                                <!--                                </div>-->
+                                <div class="card">
+                                    <div class="card-header" id="payment-2">
+                                        <h5 class="panel-title mb-2">
+                                            <a href="#" class="payment-option" data-toggle="collapse"
+                                               data-target="#collapseTwo" aria-expanded="false"
+                                               aria-controls="collapseTwo">
+                                                信用卡
+                                            </a>
+                                        </h5>
+                                    </div>
+                                    <!--                                    <div id="collapseTwo" class="collapse" aria-labelledby="payment-2"-->
+                                    <!--                                         data-parent="#accordion">-->
+                                    <!--                                        <div class="accordion-body">-->
+                                    <!--                                            <form>-->
+                                    <!--                                                <div class="mb-3">-->
+                                    <!--                                                    <label class="form-label">信用卡卡號</label>-->
+                                    <!--                                                    <div class="row">-->
+                                    <!--                                                        <div class="col">-->
+                                    <!--                                                            <input type="text" class="form-control" maxlength="4"-->
+                                    <!--                                                                   oninput="moveToNextInput(1)">-->
+                                    <!--                                                        </div>-->
+                                    <!--                                                        <div class="col">-->
+                                    <!--                                                            <input type="text" class="form-control" maxlength="4"-->
+                                    <!--                                                                   oninput="moveToNextInput(2)">-->
+                                    <!--                                                        </div>-->
+                                    <!--                                                        <div class="col">-->
+                                    <!--                                                            <input type="text" class="form-control" maxlength="4"-->
+                                    <!--                                                                   oninput="moveToNextInput(3)">-->
+                                    <!--                                                        </div>-->
+                                    <!--                                                        <div class="col">-->
+                                    <!--                                                            <input type="text" class="form-control" maxlength="4"-->
+                                    <!--                                                                   oninput="moveToNextInput(4)">-->
+                                    <!--                                                        </div>-->
+                                    <!--                                                    </div>-->
+                                    <!--                                                </div>-->
+
+                                    <!--                                                <div class="mb-3">-->
+                                    <!--                                                    <label class="form-label">持卡人姓名</label>-->
+                                    <!--                                                    <input type="text" class="form-control">-->
+                                    <!--                                                </div>-->
+                                    <!--                                                <div class="row mb-3">-->
+                                    <!--                                                    <div class="col-md-6">-->
+                                    <!--                                                        <label class="form-label">卡片到期日</label>-->
+                                    <!--                                                        <input type="text" class="form-control" placeholder="MM/YY">-->
+                                    <!--                                                    </div>-->
+                                    <!--                                                    <div class="col-md-6">-->
+                                    <!--                                                        <label class="form-label">信用卡認證碼</label>-->
+                                    <!--                                                        <input type="text" class="form-control" placeholder="XXX">-->
+                                    <!--                                                    </div>-->
+                                    <!--                                                </div>-->
+                                    <!--                                            </form>-->
+                                    <!--                                        </div>-->
+                                    <!--                                    </div>-->
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <div class="order-button-payment">
+                            <input value="提交訂單" type="button">
+                        </div>
+                        <Form action="/ecpay" id="ecpay" hidden="" method="post">
+                            <input id="orderId" name="orderId">
+                            <button id="ecpayBtn" type="submit"></button>
+                        </Form>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<!-- Checkout Area End Here -->
+<div id="footer-div"></div>
+
+<div id="copyright-div"></div>
+
+
+<!-- jQuery JS -->
+<script src="/Conponents/front_end.js"></script>
+<script src="/Dessert/JS/jquery-3.5.1.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $(".order-button-payment").click(function () {
+            // 檢查所有輸入欄位是否皆符合格式
+            let isValid = checkInputs();
+            if (isValid) {
+                var shippingCost = $('input[name="shippingCost"]').val() ? parseInt($('input[name="shippingCost"]').val()) : 0;
+
+                var orderInfo = {
+                    receiverName: $('input[name="receiverName"]').val(),
+                    receiverAddress: $('input[name="receiverAddress"]').val(),
+                    receiverEmail: $('input[name="receiverEmail"]').val(),
+                    receiverPhone: $('input[name="receiverPhone"]').val(),
+                    shippingCost: shippingCost
+                };
+
+                $.ajax({
+                    url: '/submitOrder',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify(orderInfo),
+                    success: function (result) {
+                        //alert('訂單已成功提交');
+                        //window.location.href = '/OrderSuccessful';
+
+
+                        let ecpay = document.getElementById("ecpay");
+                        let orderId = document.getElementById("orderId");
+                        let ecpayBtn = document.getElementById("ecpayBtn");
+                        orderId.value = result;
+                        ecpayBtn.click();
+                    },
+                    error: function () {
+                        alert('訂單提交失敗，請檢查您的信息並重試');
+                    }
+                });
+            }
+        });
+    });
+
+
+    $("#name").blur(function () {
+        let inputName = $(this).val();
+        let pattern = /^[a-zA-Z\u4e00-\u9fa5]+$/;
+        if (!pattern.test(inputName)) {
+            $("#name-error").text("！ 姓名只能包含英文或中文").show();
+        } else {
+            $("#name-error").text("").hide();
+        }
+    });
+
+
+    // 電話輸入區驗證
+    $("#phone").blur(function () {
+        let pattern = /^09\d{8}$/;
+        let inputPhone = $(this).val();
+
+        if (!pattern.test(inputPhone)) {
+            $("#phone-error").text("！ 電話號碼必須是09開頭且為10個數字").show();
+        } else {
+            $("#phone-error").text("").hide();
+        }
+    });
+
+
+    $("#receiverAddress").blur(function () {
+        let inputAddress = $(this).val();
+
+        let cityRegex = /(縣|市)/;
+        if (!cityRegex.test(inputAddress)) {
+            $("#address-error").text("！ 地址必須包含縣或市").show();
+            return;
+        }
+
+        let numberRegex = /號/;
+        if (!numberRegex.test(inputAddress)) {
+            $("#address-error").text("！ 地址必須包含號").show();
+            return;
+        }
+
+
+        $("#address-error").text("").hide();
+    });
+
+
+    // Email 輸入區驗證
+    $("#receiverEmail").blur(function () {
+        let pattern = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
+        let inputEmail = $(this).val();
+
+        if (!pattern.test(inputEmail)) {
+            $("#email-error").text("！ Email格式必須符合Email格式").show();
+        } else {
+            $("#email-error").text("").hide();
+        }
+    });
+
+    function checkInputs() {
+        let isValid = true;
+
+        let inputName = $("#name").val();
+        let patternName = /^[a-zA-Z\u4e00-\u9fa5]+$/;
+        if (!patternName.test(inputName) || inputName === '') {
+            $("#name-error").text("! 姓名只能包含英文或中文").show();
+            isValid = false;
+        } else {
+            $("#name-error").text("").hide();
+        }
+
+        let inputPhone = $("#phone").val();
+        let patternPhone = /^09\d{8}$/;
+        if (!patternPhone.test(inputPhone) || inputPhone === '') {
+            $("#phone-error").text("電話號碼必須是09開頭且總計十位數字").show();
+            isValid = false;
+        } else {
+            $("#phone-error").text("").hide();
+        }
+
+        let inputAddress = $("#receiverAddress").val();
+        let cityRegex = /(縣|市)/;
+        let numberRegex = /號/;
+        if (!cityRegex.test(inputAddress) || !numberRegex.test(inputAddress) || inputAddress === '') {
+            $("#address-error").text("地址必須包含縣或市及號").show();
+            isValid = false;
+        } else {
+            $("#address-error").text("").hide();
+        }
+
+        let inputEmail = $("#receiverEmail").val();
+        let patternEmail = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
+        if (!patternEmail.test(inputEmail) || inputEmail === '') {
+            $("#email-error").text("Email格式必須符合Email格式").show();
+            isValid = false;
+        } else {
+            $("#email-error").text("").hide();
+        }
+
+        return isValid;
+    }
+
+
+    <!--讓我的preloader不要無限轉圈圈-->
+    $(window).on('load', function () {
+        $('.preloader').hide();
+    });
+
+
+</script>
+
+
+<script data-cfasync="false" src="/Dessert/JS/SAM/email-decode.min.js"></script>
+<script src="/Dessert/JS/SAM/main.js" type="0080e6b992b21508d4c0eeae-text/javascript"></script>
+<script src="/Dessert/JS/SAM/rocket-loader.min.js" data-cf-settings="0080e6b992b21508d4c0eeae-|49" defer=""></script>
+
+
+<!-- JS
+============================================ -->
+
+
+<!-- jQuery Migrate JS -->
+<script src="/Dessert/JS/jQuery-migrate-3.3.0.min.js"></script>
+<!-- Modernizer JS -->
+<script src="/Dessert/JS/modernizr-2.8.3.min.js"></script>
+<!-- Bootstrap JS -->
+<script src="/Dessert/JS/bootstrap.bundle.min.js"></script>
+<!-- Slick Slider JS -->
+<script src="/Dessert/JS/slick.min.js"></script>
+<!-- Countdown JS -->
+<script src="/Dessert/JS/jquery.countdown.min.js"></script>
+<!-- Ajax JS -->
+<script src="/Dessert/JS/jquery.ajaxchimp.min.js"></script>
+<!-- Jquery Nice Select JS -->
+<script src="/Dessert/JS/jquery.nice-select.min.js"></script>
+<!-- Jquery Ui JS -->
+<script src="/Dessert/JS/jquery-ui.min.js"></script>
+<!-- jquery magnific popup js -->
+<script src="/Dessert/JS/jquery.magnific-popup.min.js"></script>
+
+<!-- Main JS -->
+<script src="/Dessert/JS/main.js"></script>
+<script>
+    // 获取所有付款选项
+    var paymentOptions = document.querySelectorAll('.payment-option');
+
+    // 添加点击事件监听器
+    paymentOptions.forEach(function (option) {
+        option.addEventListener('click', function () {
+            // 移除其他付款选项的激活状态
+            paymentOptions.forEach(function (otherOption) {
+                otherOption.classList.remove('active');
+            });
+
+            // 添加激活状态到当前选中的付款选项
+            option.classList.add('active');
+        });
+    });
+
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Le Goûter</title>
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
+
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com/">
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+    <link href="static/css/css2.css" rel="stylesheet">
+
+    <link href="static/css/all.min.css" rel="stylesheet">
+    <link href="static/css/bootstrap-icons.css" rel="stylesheet">
+
+    <link href="static/css/animate.min.css" rel="stylesheet">
+    <link href="static/css/owl.carousel.min.css" rel="stylesheet">
+
+    <link href="static/css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="static/css/style.css" rel="stylesheet">
+</head>
+
+<body>
+    <!-- header -->
+    <!-- #header -->
+    <div id="spinner"
+        class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-grow text-primary" role="status"></div>
+    </div>
+
+
+   <div id="header-div"></div>
+   <div id="nav-div"></div>
+
+
+    <!-- 中間橫幅 -->
+    <section id="page-header">
+
+        <h2>#甜點商城</h2>
+
+        <p>裡面有很多好吃的ㄛ</p>
+
+    </section>
+
+
+
+    <!-- 甜點頁 -->
+    <section id="product1" class="section-p1">
+        <div class="pro-container" id="mainfrontshop">
+        
+
+        </div>
+    </section>
+
+
+
+
+    <!-- footer------------------------------------------------------------------------------------------------- -->
+    <div id="footer-div"></div>
+
+    <div id="copyright-div"></div>
+
+
+
+
+
+<!--     -------------------------------------------------------------------------------------------------------------------------------------------->
+
+    <!-- 共用頭尾 -->
+    <script src="/Conponents/front_end.js"></script>
+
+
+
+    <script data-cfasync="false" src="static/js/email-decode.min.js"></script>
+    <script src="static/js/jquery-3.4.1.min.js" type="0080e6b992b21508d4c0eeae-text/javascript"></script>
+    <script src="static/js/bootstrap.bundle.min.js" type="0080e6b992b21508d4c0eeae-text/javascript"></script>
+    <script src="static/js/wow.min.js" type="0080e6b992b21508d4c0eeae-text/javascript"></script>
+    <script src="static/js/easing.min.js" type="0080e6b992b21508d4c0eeae-text/javascript"></script>
+    <script src="static/js/waypoints.min.js" type="0080e6b992b21508d4c0eeae-text/javascript"></script>
+    <script src="static/js/counterup.min.js" type="0080e6b992b21508d4c0eeae-text/javascript"></script>
+    <script src="static/js/owl.carousel.min.js" type="0080e6b992b21508d4c0eeae-text/javascript"></script>
+
+    <script src="static/js/main.js" type="0080e6b992b21508d4c0eeae-text/javascript"></script>
+    <script src="static/js/rocket-loader.min.js" data-cf-settings="0080e6b992b21508d4c0eeae-|49" defer=""></script>
+    <!-- ------------------------------------------------------------------------------------------------------- -->
+    <script src="script.js"></script>
+    <!-- ------------------------------------------------------------------------------------------------------- -->
+
+    <!-- sweet alert-->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="sweetalert2.all.min.js"></script>
+
+
+
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.min.js" integrity="sha512-uMtXmF28A2Ab/JJO2t/vYhlaa/3ahUOgj1Zf27M5rOo8/+fcTUVH0/E0ll68njmjrLqOBjXM3V9NiPFL5ywWPQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+<!--    toast -->
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+    <link href="https://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css" rel="stylesheet">
+    <script src="https://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
+
+
+<!--    ------------------------------------------------------------------------------------------------------------------- -->
+    <script>
+
+        toastr.options = {
+            // toastr配置
+            "closeButton": true, //是否显示关闭按钮
+            "debug": false, //是否使用debug模式
+            "progressBar": true, //是否显示进度条，当为false时候不显示；当为true时候，显示进度条，当进度条缩短到0时候，消息通知弹窗消失
+            "positionClass": "toast-top-center",//显示的动画位置
+            "showDuration": "400", //显示的动画时间
+            "hideDuration": "1000", //消失的动画时间
+            "timeOut": "7000", //展现时间
+            "extendedTimeOut": "1000", //加长展示时间
+            "showEasing": "swing", //显示时的动画缓冲方式
+            "hideEasing": "linear", //消失时的动画缓冲方式
+            "showMethod": "fadeIn", //显示时的动画方式
+            "hideMethod": "fadeOut" //消失时的动画方式
+        }
+
+
+        <!-- 跳轉頁面同時傳參數函式 -->
+        function redirectToSProduct(param) {
+            let url = 'sproduct.html?param=' + encodeURIComponent(param);
+            window.location.href = url;
+        }
+
+        <!-- getall -->
+        $(document).ready(findAll());
+        function findAll(){
+            $.ajax({
+                url: '/dessert5front/findall',
+                type: 'GET',
+                success: function(res){
+                    console.log(res);
+                    let html = "";
+                    for (let e in res) {
+                        // let dessertId = res[e].dessertId;
+                        if (res[e].dessertStatus === "已下架") {
+                            continue;
+                        }
+                        html += `<div class="pro" onclick="redirectToSProduct(${res[e].dessertId})" style="margin-left: 13px; margin-right: 13px;">
+                                    <img src="/dessert5/image0?dessertId=${res[e].dessertId}" alt="">
+                                    <div class="des">
+                                        <span>甜點商城</span>
+                                        <h5>${res[e].dessertName}</h5>
+                                        <div class="star">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                        </div>
+                                        <h4>NT$${res[e].dessertPrice}</h4>
+                                    </div>
+                                    <a href="#" onclick="event.preventDefault(); event.stopPropagation(); addtocart(${res[e].dessertId})"<i class="fal fa-shopping-cart cart"></i></a>
+                                </div>`;
+
+                    }
+                    $("#mainfrontshop").html(html);
+                },
+                error: function(xhr, textStatus, errorThrown) {
+                    console.error(xhr);
+                }
+            })
+        }
+
+        // 加入購物車，並檢查登入
+        function addtocart(dessertId) {
+            $.ajax({
+                url: '/dessert5front/addtocartshop?dessertId='+ dessertId,
+                type: 'GET',
+                success: function(res) {
+                    console.log(res);
+                    if (res == "/login") {
+                        // window.alert("請先登入會員，將跳轉至會員登入頁面");
+                        Swal.fire({
+                            title: '請登入會員',
+                            text: "須先登入會員才能使用購物車功能",
+
+                            // icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#3085d6',
+                            cancelButtonColor: '#d33',
+                            confirmButtonText: '確定，將跳轉至登入頁面',
+                            cancelButtonText: '暫不登入'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                window.location.href = res;
+                            }
+                        })
+
+                    } else if (res == "已加入購物車") {
+                        // window.alert(res);
+                        toastr.success(res);
+                    } else {
+                        // window.alert(res);
+                        toastr.error(res);
+                    }
+                }
+            });
+
+        }
+    </script>
+
+
+
+
+</body>
+
+</html>
